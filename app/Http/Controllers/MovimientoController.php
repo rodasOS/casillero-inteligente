@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Herramienta;
 use App\Models\Movimiento;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -27,7 +28,7 @@ class MovimientoController extends Controller
             'id_usuario' => 'required|integer',
             'id_herramienta' => 'required|integer',
             'cantidad_herramientas' => 'required|integer',
-            'tipo_movimiento' => 'required|string',
+            'tipo_movimiento' => 'required|string|in:adentro,afuera',
         ]);
 
         if($validator->fails()) {
@@ -43,6 +44,16 @@ class MovimientoController extends Controller
             'cantidad_herramientas' => $request->cantidad_herramientas,
             'tipo_movimiento' => $request->tipo_movimiento,
         ]);
+
+        $herranienta = Herramienta::find($request->id_herramienta);
+
+        if ($request->tipo_movimiento == 'adentro') {
+            $herranienta->cantidad_en_casillero += $request->cantidad_herramientas;
+        } else {
+            $herranienta->cantidad_en_casillero -= $request->cantidad_herramientas;
+        }
+        $herranienta->save();
+
         return response()->json([
             'message' => 'Movimiento creado exitosamente',
             'movimiento' => $movimiento,

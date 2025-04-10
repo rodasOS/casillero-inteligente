@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Herramienta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class HerramientaController extends Controller
 {
@@ -15,19 +16,33 @@ class HerramientaController extends Controller
         //
         $herramientas = Herramienta::all();
 
-        return view('home', [
-            'herramientas' => $herramientas,
-        ]);
-
-        // return response()->json($herramientas);
+        return response()->json($herramientas);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|string|max:255',
+            'cantidad_total' => 'required|integer',
+            'cantidad_en_casillero' => 'required|integer',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 422);
+        }
+
+        $nuevaHerramienta = Herramienta::create([
+            'nombre' => $request->input('nombre'),
+            'cantidad_total' => $request->input('cantidad_total'),
+            'cantidad_en_casillero' => $request->input('cantidad_en_casillero'),
+        ]);
+
+        return response()->json($nuevaHerramienta, 201);
     }
 
     /**
