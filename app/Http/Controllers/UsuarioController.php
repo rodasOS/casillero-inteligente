@@ -38,9 +38,29 @@ class UsuarioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Usuario $usuario)
+    public function show(Request $reques) 
     {
         //
+        $usuario = Usuario::where('contrasena', $reques->contrasena)->first();
+        // $usuario = Usuario::find($reques->contrasena);
+
+        // dd($usuario);
+
+        if (is_null($usuario)) {
+            return response()->json([
+                'message' => 'Usuario no encontrado',
+            ], 404);
+        }
+
+        // dd($usuario);
+
+        // return response()->json([
+        //     'message' => 'Usuario encontrado',
+        //     'usuario' => $usuario,
+        // ], 200);
+        // return response()->json($usuario, 200);
+
+        return response()->json($usuario, 200);
     }
 
     /**
