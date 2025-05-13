@@ -11,7 +11,8 @@ class Usuario extends Model
     public $fillable = [
         'id',
         'nombre',
-        'contrasena'
+        'contrasena',
+        'ultima_consulta',
     ];
 
     // protected $hidden = 'contrasena';

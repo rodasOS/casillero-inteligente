@@ -63,10 +63,25 @@
             max-width: 1000px;
             overflow-x: auto;
         }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+
+            &>h1 {
+                width: 80vw;
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Casillero Inteligente</h1>
+    <div class="header">
+        <h1>Casillero Inteligente</h1>
+        <img 
+        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2pXZfW0SIrFr3Ekmqj0sGQDBjqzGWV4Ko4A&s" 
+        alt="">
+    </div>
 
     <div class="table-container">
         <h2>Listado de Usuarios</h2>

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/usuarios', [UsuarioController::class, 'index']);
 
+Route::get('/usuario_activo', [UsuarioController::class, 'latest']);
+
 Route::post('/usuarios', [UsuarioController::class, 'show']);
 
 Route::get('/herramientas', [HerramientaController::class, 'index']);

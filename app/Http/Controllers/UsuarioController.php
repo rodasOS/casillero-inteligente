@@ -19,6 +19,13 @@ class UsuarioController extends Controller
         return response($usuarios);
     }
 
+    public function latest() {
+        // $usuarios = Usuario::latest()->first();
+        $usuario = Usuario::orderBy('ultima_consulta', 'desc')->first();
+
+        return response($usuario);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -59,6 +66,10 @@ class UsuarioController extends Controller
         //     'usuario' => $usuario,
         // ], 200);
         // return response()->json($usuario, 200);
+        // dd(this.$ultimoUsuario);
+
+        $usuario->ultima_consulta = now();
+        $usuario->save();
 
         return response()->json($usuario, 200);
     }
