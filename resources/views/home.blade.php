@@ -69,6 +69,7 @@
             align-items: center;
             justify-content: space-evenly;
 
+            
             &>h1 {
                 width: 80vw;
             }
